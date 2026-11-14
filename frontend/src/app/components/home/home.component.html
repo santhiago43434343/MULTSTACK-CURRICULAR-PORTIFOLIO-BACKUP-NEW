@@ -1,0 +1,76 @@
+<!-- ===================== HERO / LANDING ===================== -->
+<section class="relative flex min-h-[calc(100vh-5rem)] items-center justify-center overflow-hidden">
+  <img src="imagens/hero/trabalho-ti.jpg" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-cover" />
+  <div class="absolute inset-0 bg-gradient-to-br from-brand-900/90 via-brand-800/80 to-brand-900/95"></div>
+
+  <div class="relative mx-auto max-w-3xl px-6 text-center text-white">
+    <p class="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-accent-400">Portfólio</p>
+    <h1 class="text-4xl font-extrabold leading-tight sm:text-6xl">
+      Santhiago<span class="text-accent-400">.</span>
+    </h1>
+    <p class="mx-auto mt-5 max-w-xl text-lg text-brand-100">
+      Desenvolvedor Full-Stack — Angular, Python / FastAPI, PostgreSQL e Docker.
+    </p>
+    <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+      <a routerLink="/projetos"
+        class="rounded-xl bg-accent-400 px-6 py-3 font-semibold text-brand-900 shadow-lg shadow-accent-500/20 transition hover:-translate-y-0.5 hover:bg-accent-300">
+        Ver projetos
+      </a>
+      <a routerLink="/contato"
+        class="rounded-xl border border-white/30 px-6 py-3 font-semibold text-white transition hover:bg-white/10">
+        Falar comigo
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SALMO EM DESTAQUE ===================== -->
+<section class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+  <figure
+    class="relative overflow-hidden rounded-2xl border border-brand-100 bg-white px-8 py-12 text-center shadow-sm sm:px-12">
+    <div class="absolute inset-x-0 top-0 h-1.5 bg-accent-400"></div>
+    <span class="block font-serif text-7xl leading-none text-accent-300" aria-hidden="true">&ldquo;</span>
+    <blockquote class="-mt-6 font-serif text-xl italic leading-relaxed text-brand-900 sm:text-2xl">
+      <span class="align-super text-sm font-bold not-italic text-accent-500">5</span>
+      Entrega o teu caminho ao Senhor; confia nele, e ele o fará.
+      <span class="align-super text-sm font-bold not-italic text-accent-500">6</span>
+      E ele fará sobressair a tua justiça como a luz, e o teu juízo como o meio-dia.
+    </blockquote>
+    <figcaption class="mt-8 text-sm font-semibold uppercase tracking-[0.2em] text-brand-600">
+      Salmos 37:5,6 <span class="mx-1 text-accent-500">&bull;</span> ACF
+    </figcaption>
+  </figure>
+</section>
+
+<!-- Emblema: só o olho do Apache Cassandra (textos cortados via CSS) -->
+<div class="flex justify-center py-12">
+  <div class="h-80 w-72 overflow-hidden rounded-2xl shadow-xl sm:h-96 sm:w-[22rem]">
+    <img src="imagens/hero/cassandra-emblema.png" alt="Símbolo do Apache Cassandra" class="h-full w-full object-cover"
+      style="object-position: left center" />
+  </div>
+</div>
+
+<!-- ===================== PROJETOS & TECNOLOGIAS (da API) ===================== -->
+<section class="bg-yellow-300 px-6 py-16 sm:py-20">
+  <div class="mx-auto max-w-6xl">
+    <h2 class="mb-2 text-center text-3xl font-bold text-brand-700 sm:text-4xl">
+      Projetos &amp; Tecnologias
+    </h2>
+    <p class="mx-auto mb-12 max-w-2xl text-center text-slate-600">
+      As stacks que uso, agrupadas por área — as prévias vêm do backend.
+    </p>
+
+    @if (banners().length) {
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+      @for (b of banners(); track b.id) {
+      <!-- DEPOIS -->
+      <app-banner [slug]="slugDe(b.titulo)" [titulo]="b.titulo" [imagens]="b.imagens" [links]="b.links" />
+      }
+    </div>
+    } @else {
+    <p class="text-center text-slate-400">
+      Carregando… (confira se o backend está rodando em <code>localhost:8000</code>)
+    </p>
+    }
+  </div>
+</section>

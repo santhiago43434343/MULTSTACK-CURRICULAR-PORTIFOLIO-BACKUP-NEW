@@ -1,0 +1,92 @@
+<section class="mx-auto max-w-5xl px-6 py-12 sm:py-16">
+  <a routerLink="/home"
+     class="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-brand-600 transition hover:text-accent-500">
+    <span class="text-lg leading-none">&lsaquo;</span> Voltar
+  </a>
+
+  <p class="mb-1 text-sm font-semibold uppercase tracking-[0.28em] text-accent-500">Tema</p>
+  <h1 class="mb-3 text-4xl font-extrabold tracking-tight text-brand-700">Back-end &amp; APIs</h1>
+  <p class="mb-6 max-w-2xl text-lg leading-relaxed text-slate-500">
+    APIs REST com FastAPI (Python), Rails e Spring Boot — testadas via browser e curl,
+    com respostas 200 OK, bancos relacionais e cache Redis/TimescaleDB.
+  </p>
+
+  <!-- badges da stack -->
+  <div class="mb-8 flex flex-wrap gap-2.5">
+    @for (t of stack; track t.lbl) {
+      <span class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 py-1.5 pl-2 pr-3 text-sm font-semibold text-slate-700">
+        <img [src]="t.src" [alt]="t.lbl" class="h-5 w-5 object-contain" /> {{ t.lbl }}
+      </span>
+    }
+  </div>
+
+  <!-- ===== CARROSSEL ===== -->
+  <div class="relative h-[28rem] overflow-hidden rounded-2xl border border-slate-200 bg-slate-900 shadow-xl sm:h-[30rem]">
+    <div class="flex h-full transition-transform duration-700 ease-in-out"
+         [style.transform]="'translateX(-' + atual() * 100 + '%)'">
+      @for (img of imagens; track img.src) {
+        <div class="flex h-full w-full shrink-0 items-center justify-center bg-slate-900">
+          <img [src]="img.src" [alt]="img.cap" class="max-h-full max-w-full object-contain" />
+        </div>
+      }
+    </div>
+
+    <!-- legenda -->
+    <div class="pointer-events-none absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/80 to-transparent px-5 pb-4 pt-10 text-sm font-medium text-white">
+      {{ imagens[atual()].cap }}
+    </div>
+
+    <!-- contador -->
+    <span class="absolute right-4 top-4 z-10 rounded-full bg-black/55 px-3 py-1 text-xs text-white">
+      {{ atual() + 1 }} / {{ imagens.length }}
+    </span>
+
+    <!-- setas -->
+    <button type="button" (click)="anterior()" aria-label="Imagem anterior"
+      class="absolute left-3 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-3xl leading-none text-white transition hover:bg-black/70">&lsaquo;</button>
+    <button type="button" (click)="proximo()" aria-label="Próxima imagem"
+      class="absolute right-3 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-3xl leading-none text-white transition hover:bg-black/70">&rsaquo;</button>
+
+    <!-- dots -->
+    <div class="absolute inset-x-0 bottom-14 z-10 flex flex-wrap justify-center gap-1.5 px-4">
+      @for (img of imagens; track img.src; let i = $index) {
+        <button type="button" (click)="irPara(i)" [attr.aria-label]="'Ir para o slide ' + (i + 1)"
+          class="h-2 rounded-full transition-all"
+          [class]="atual() === i ? 'w-5 bg-accent-400' : 'w-2 bg-white/45 hover:bg-white'"></button>
+      }
+    </div>
+  </div>
+
+  <!-- miniaturas -->
+  <div class="mt-4 flex flex-wrap gap-2">
+    @for (img of imagens; track img.src; let i = $index) {
+      <button type="button" (click)="irPara(i)"
+        class="h-14 w-20 overflow-hidden rounded-lg border-2 bg-slate-900 transition"
+        [class]="atual() === i ? 'border-accent-500' : 'border-slate-200 hover:border-slate-300'">
+        <img [src]="img.src" [alt]="img.cap" class="h-full w-full object-cover" />
+      </button>
+    }
+  </div>
+
+  <!-- descrição -->
+  <div class="mt-12 max-w-2xl">
+    <h2 class="mb-3 text-xl font-bold text-brand-700">Sobre</h2>
+    <p class="leading-relaxed text-slate-500">
+      Evidências de backend do portfólio: rotas de API respondendo 200 OK, integração com
+      banco (TimescaleDB/PostgreSQL), testes via browser e terminal, e a stack server-side.
+    </p>
+  </div>
+
+  <!-- links -->
+  <div class="mt-10">
+    <h2 class="mb-4 text-lg font-bold text-brand-700">Projetos que usam</h2>
+    <div class="flex flex-wrap gap-3">
+      @for (link of links; track link.url) {
+        <a [href]="link.url" target="_blank" rel="noopener"
+          class="rounded-xl border border-brand-200 bg-white px-5 py-2.5 font-semibold text-brand-700 shadow-sm transition hover:-translate-y-0.5 hover:border-accent-400 hover:text-accent-500">
+          {{ link.label }}
+        </a>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,62 @@
+<section class="mx-auto max-w-5xl px-6 py-12 sm:py-16">
+  <a routerLink="/home"
+     class="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-brand-600 transition hover:text-accent-500">
+    <span class="text-lg leading-none">&lsaquo;</span> Voltar
+  </a>
+
+  <p class="mb-1 text-sm font-semibold uppercase tracking-[0.28em] text-accent-500">Credenciais</p>
+  <h1 class="mb-3 text-4xl font-extrabold tracking-tight text-brand-700">Certificados &amp; Competências</h1>
+  <p class="mb-6 max-w-2xl text-lg leading-relaxed text-slate-500">
+    Graduação, cursos complementares e conhecimentos específicos — bootcamps, programas e trilhas concluídas.
+  </p>
+
+  <!-- instituições -->
+  <div class="mb-8 flex flex-wrap gap-2.5">
+    @for (inst of instituicoes; track inst) {
+      <span class="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-4 py-1.5 text-sm font-semibold text-slate-700">
+        {{ inst }}
+      </span>
+    }
+  </div>
+
+  <!-- CARROSSEL -->
+  <div class="relative h-[28rem] overflow-hidden rounded-2xl border border-slate-200 bg-slate-900 shadow-xl sm:h-[30rem]">
+    <div class="flex h-full transition-transform duration-700 ease-in-out"
+         [style.transform]="'translateX(-' + atual() * 100 + '%)'">
+      @for (img of imagens; track img.src) {
+        <div class="flex h-full w-full shrink-0 items-center justify-center bg-slate-900">
+          <img [src]="img.src" [alt]="img.cap" class="max-h-full max-w-full object-contain" />
+        </div>
+      }
+    </div>
+
+    <div class="pointer-events-none absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/80 to-transparent px-5 pb-4 pt-10 text-sm font-medium text-white">
+      {{ imagens[atual()].cap }}
+    </div>
+    <span class="absolute right-4 top-4 z-10 rounded-full bg-black/55 px-3 py-1 text-xs text-white">
+      {{ atual() + 1 }} / {{ imagens.length }}
+    </span>
+    <button type="button" (click)="anterior()" aria-label="Anterior"
+      class="absolute left-3 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-3xl leading-none text-white transition hover:bg-black/70">&lsaquo;</button>
+    <button type="button" (click)="proximo()" aria-label="Próxima"
+      class="absolute right-3 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-3xl leading-none text-white transition hover:bg-black/70">&rsaquo;</button>
+    <div class="absolute inset-x-0 bottom-14 z-10 flex flex-wrap justify-center gap-1.5 px-4">
+      @for (img of imagens; track img.src; let i = $index) {
+        <button type="button" (click)="irPara(i)" [attr.aria-label]="'Slide ' + (i + 1)"
+          class="h-2 rounded-full transition-all"
+          [class]="atual() === i ? 'w-5 bg-accent-400' : 'w-2 bg-white/45 hover:bg-white'"></button>
+      }
+    </div>
+  </div>
+
+  <!-- miniaturas -->
+  <div class="mt-4 flex flex-wrap gap-2">
+    @for (img of imagens; track img.src; let i = $index) {
+      <button type="button" (click)="irPara(i)"
+        class="h-14 w-20 overflow-hidden rounded-lg border-2 bg-slate-900 transition"
+        [class]="atual() === i ? 'border-accent-500' : 'border-slate-200 hover:border-slate-300'">
+        <img [src]="img.src" [alt]="img.cap" class="h-full w-full object-cover" />
+      </button>
+    }
+  </div>
+</section>

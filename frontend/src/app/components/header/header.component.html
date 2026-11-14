@@ -1,0 +1,54 @@
+<header
+  class="fixed inset-x-0 top-0 z-50 border-b border-brand-800/40 bg-brand-700/90 backdrop-blur"
+>
+  <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+    <!-- Logo -->
+    <a routerLink="/home" (click)="fecharMenu()" class="font-display text-xl font-bold text-white">
+      Santhiago<span class="text-accent-400">.</span>
+    </a>
+
+    <!-- Navegação (desktop) -->
+    <ul class="hidden items-center gap-1 md:flex">
+      @for (item of navItems; track item.path) {
+        <li>
+          <a
+            [routerLink]="item.path"
+            routerLinkActive="bg-accent-400 !text-brand-900"
+            class="rounded-lg px-4 py-2 text-sm font-medium text-brand-100 transition-colors hover:bg-brand-600 hover:text-white"
+          >
+            {{ item.label }}
+          </a>
+        </li>
+      }
+    </ul>
+
+    <!-- Botão do menu (mobile) -->
+    <button
+      type="button"
+      (click)="alternarMenu()"
+      [attr.aria-expanded]="menuAberto()"
+      aria-label="Abrir menu de navegação"
+      class="inline-flex h-10 w-10 items-center justify-center rounded-lg text-2xl leading-none text-white transition hover:bg-brand-600 md:hidden"
+    >
+      {{ menuAberto() ? '×' : '☰' }}
+    </button>
+  </nav>
+
+  <!-- Menu suspenso (mobile) -->
+  @if (menuAberto()) {
+    <ul class="space-y-1 border-t border-brand-800/40 bg-brand-700 px-6 py-3 md:hidden">
+      @for (item of navItems; track item.path) {
+        <li>
+          <a
+            [routerLink]="item.path"
+            (click)="fecharMenu()"
+            routerLinkActive="bg-accent-400 !text-brand-900"
+            class="block rounded-lg px-4 py-2 font-medium text-brand-100 transition-colors hover:bg-brand-600 hover:text-white"
+          >
+            {{ item.label }}
+          </a>
+        </li>
+      }
+    </ul>
+  }
+</header>

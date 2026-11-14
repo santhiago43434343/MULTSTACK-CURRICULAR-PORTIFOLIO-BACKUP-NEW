@@ -1,0 +1,35 @@
+<section class="mx-auto max-w-4xl px-6 py-16 sm:py-20">
+  <div class="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm sm:p-10">
+    <h1 class="text-3xl font-bold text-brand-700 sm:text-4xl">Créditos e referências das imagens</h1>
+
+    <!-- Nota legal / atribuição -->
+    <div class="mt-5 rounded-lg border-l-4 border-accent-400 bg-amber-50 p-5 text-slate-700">
+      <p class="leading-relaxed">
+        Todas as imagens, logotipos e ícones exibidos neste portfólio pertencem aos seus
+        respectivos autores e detentores de direitos, e são utilizados sem fins lucrativos,
+        para fins educacionais e de demonstração de competências técnicas. As fontes estão
+        creditadas abaixo, em respeito ao direito de atribuição previsto na
+        <strong>Lei nº 9.610/1998</strong> (Lei de Direitos Autorais). Caso você seja
+        detentor de algum direito e deseje a correção do crédito ou a remoção de uma imagem,
+        por favor entre em contato.
+      </p>
+    </div>
+
+    <!-- Lista das fontes -->
+    <ul class="mt-8 divide-y divide-slate-100">
+      @for (f of fontes; track f.url) {
+        <li class="flex flex-col gap-1 py-3 sm:flex-row sm:items-center sm:justify-between">
+          <span class="font-medium text-slate-800">{{ f.item }}</span>
+          <a
+            [href]="f.url"
+            target="_blank"
+            rel="noopener"
+            class="break-all text-sm text-brand-600 transition hover:text-accent-500 hover:underline"
+          >
+            {{ f.fonte }}
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+</section>

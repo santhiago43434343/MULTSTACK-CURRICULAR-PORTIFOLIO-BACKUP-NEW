@@ -1,0 +1,84 @@
+<section class="mx-auto max-w-2xl px-6 py-16 sm:py-20">
+  <h1 class="mb-2 text-center text-3xl font-bold text-brand-700 sm:text-4xl">Contato</h1>
+  <p class="mx-auto mb-10 max-w-lg text-center text-slate-600">
+    Quer conversar sobre uma vaga ou projeto? Manda uma mensagem.
+  </p>
+
+  <form
+    (ngSubmit)="enviar()"
+    class="space-y-5 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm"
+  >
+    <div>
+      <label for="nome" class="mb-1 block text-sm font-medium text-slate-700">Nome</label>
+      <input
+        id="nome"
+        name="nome"
+        type="text"
+        required
+        [(ngModel)]="nome"
+        placeholder="Seu nome"
+        class="w-full rounded-lg border border-slate-300 px-4 py-2.5 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-200"
+      />
+    </div>
+    <div>
+      <label for="email" class="mb-1 block text-sm font-medium text-slate-700">E-mail</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        required
+        [(ngModel)]="email"
+        placeholder="voce@email.com"
+        class="w-full rounded-lg border border-slate-300 px-4 py-2.5 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-200"
+      />
+    </div>
+    <div>
+      <label for="msg" class="mb-1 block text-sm font-medium text-slate-700">Mensagem</label>
+      <textarea
+        id="msg"
+        name="mensagem"
+        rows="4"
+        required
+        [(ngModel)]="mensagem"
+        placeholder="Escreva aqui..."
+        class="w-full rounded-lg border border-slate-300 px-4 py-2.5 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-200"
+      ></textarea>
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="enviando()"
+      class="w-full rounded-lg bg-brand-600 px-4 py-3 font-semibold text-white transition hover:bg-brand-700 disabled:opacity-60"
+    >
+      {{ enviando() ? 'Enviando...' : 'Enviar' }}
+    </button>
+
+    @if (status() === 'ok') {
+      <p class="rounded-lg bg-green-50 px-4 py-3 text-center text-sm font-medium text-green-700">
+        Mensagem enviada! Obrigado — respondo em breve.
+      </p>
+    }
+    @if (status() === 'erro') {
+      <p class="rounded-lg bg-red-50 px-4 py-3 text-center text-sm font-medium text-red-700">
+        Ops, não consegui enviar. Confira se o backend está no ar e tente de novo.
+      </p>
+    }
+  </form>
+
+  <div class="mt-8 flex justify-center gap-6 text-sm">
+    <a
+      href="mailto:santhiago4343434343@gmail.com"
+      class="font-medium text-brand-700 transition hover:text-accent-500 hover:underline"
+    >
+      E-mail
+    </a>
+    <a
+      href="https://github.com/santhiago4343434343"
+      target="_blank"
+      rel="noopener"
+      class="font-medium text-brand-700 transition hover:text-accent-500 hover:underline"
+    >
+      GitHub
+    </a>
+  </div>
+</section>

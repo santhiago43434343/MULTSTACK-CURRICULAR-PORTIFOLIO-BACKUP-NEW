@@ -1,0 +1,33 @@
+# Dependências
+node_modules/
+**/node_modules/
+
+# Build e cache do Angular
+dist/
+**/dist/
+.angular/
+**/.angular/
+
+# Variáveis de ambiente (segredos)
+.env
+**/.env
+*.env.local
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Python / FastAPI (backend)
+**/__pycache__/
+*.py[cod]
+**/.venv/
+.venv/
+*.egg-info/
+
+# Banco SQLite (dev)
+*.db
+*.sqlite3

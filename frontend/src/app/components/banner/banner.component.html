@@ -1,0 +1,66 @@
+<div
+  class="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:shadow-md">
+  <!-- Janela do carrossel -->
+  <div class="relative h-72 overflow-hidden">
+    <!-- Trilho que desliza pro lado -->
+    <div class="flex h-full transition-transform duration-700 ease-in-out"
+      [style.transform]="'translateX(-' + atual() * 100 + '%)'">
+      @for (img of imagens; track img) {
+      @if (ehVideo(img)) {
+      <video [src]="img" autoplay muted loop playsinline
+        class="h-full w-full shrink-0 bg-slate-50 object-cover"></video>
+      } @else {
+      <img [src]="img" [alt]="titulo"
+        class="h-full w-full shrink-0 bg-slate-50 object-contain p-6 transition-transform duration-500 group-hover:scale-105" />
+      }
+      }
+    </div>
+
+    <!-- Seta voltar -->
+    <button type="button" (click)="anterior()" aria-label="Imagem anterior"
+      class="absolute left-2 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-2xl leading-none text-white transition hover:bg-black/60">
+      &lsaquo;
+    </button>
+
+    <!-- Seta avançar -->
+    <button type="button" (click)="proximo()" aria-label="Próxima imagem"
+      class="absolute right-2 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-2xl leading-none text-white transition hover:bg-black/60">
+      &rsaquo;
+    </button>
+
+    <!-- Indicadores (dots) -->
+    @if (imagens.length > 1) {
+    <div class="absolute inset-x-0 bottom-3 z-10 flex justify-center gap-1.5">
+      @for (img of imagens; track img; let i = $index) {
+      <button type="button" (click)="irPara(i)" [attr.aria-label]="'Ir para o slide ' + (i + 1)"
+        class="h-2 rounded-full transition-all"
+        [class]="atual() === i ? 'w-5 bg-accent-400' : 'w-2 bg-white/60 hover:bg-white'"></button>
+      }
+    </div>
+    }
+  </div>
+
+  <!-- Título + links -->
+  <div class="flex flex-1 flex-col p-6">
+    <h3 class="mb-3 text-xl font-bold text-brand-700">{{ titulo }}</h3>
+    <ul class="space-y-2">
+      @for (link of links; track link.url) {
+      <li>
+        <a [href]="link.url" target="_blank" rel="noopener"
+          class="text-slate-700 transition hover:text-accent-500 hover:underline">
+          {{ link.label }}
+        </a>
+      </li>
+      }
+    </ul>
+
+    <!-- banner independente -->
+    @if (slug) {
+    <a [routerLink]="['/detalhe', slug]"
+      class="mt-auto inline-flex items-center gap-1 pt-4 font-semibold text-accent-500 transition hover:gap-2">
+      >
+      Ver detalhes <span class="leading-none">&rsaquo;</span>
+    </a>
+    }
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<section class="mx-auto max-w-5xl px-6 py-12 sm:py-16">
+    <a routerLink="/home"
+        class="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-brand-600 transition hover:text-accent-500">
+        <span class="text-lg leading-none">&lsaquo;</span> Voltar
+    </a>
+
+    <p class="mb-1 text-sm font-semibold uppercase tracking-[0.28em] text-accent-500">Tema</p>
+    <h1 class="mb-3 text-4xl font-extrabold tracking-tight text-brand-700">Sistemas &amp; Terminal</h1>
+    <p class="mb-8 max-w-2xl text-lg leading-relaxed text-slate-500">
+        Ambiente de desenvolvimento em Linux (Ubuntu) via WSL sobre Windows, com automação
+        no PowerShell e no terminal — a base onde todos os projetos rodam.
+    </p>
+
+    <div class="flex flex-wrap gap-2.5">
+        @for (t of stack; track t.lbl) {
+        <span
+            class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 py-1.5 pl-2 pr-3 text-sm font-semibold text-slate-700">
+            <img [src]="t.src" [alt]="t.lbl" class="h-5 w-5 object-contain" /> {{ t.lbl }}
+        </span>
+        }
+    </div>
+</section>

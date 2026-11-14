@@ -1,0 +1,87 @@
+<section class="mx-auto max-w-5xl px-6 py-12 sm:py-16">
+  <!-- voltar -->
+  <a routerLink="/home"
+    class="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-brand-600 transition hover:text-accent-500">
+    <span class="text-lg leading-none">&lsaquo;</span> Voltar
+  </a>
+
+  @if (carregando()) {
+  <p class="text-center text-slate-400">Carregando…</p>
+  } @else if (banner(); as b) {
+  <!-- título + tema (tipo "subpasta") -->
+  <p class="mb-1 text-sm font-semibold uppercase tracking-[0.25em] text-accent-500">Tema</p>
+  <h1 class="mb-8 text-3xl font-extrabold text-brand-700 sm:text-4xl">{{ b.titulo }}</h1>
+
+  <!-- ===== CARROSSEL GRANDE ===== -->
+  <div class="relative h-[28rem] overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 shadow-lg">
+    <!-- trilho que desliza -->
+    <div class="flex h-full transition-transform duration-700 ease-in-out"
+      [style.transform]="'translateX(-' + atual() * 100 + '%)'">
+      @for (img of b.imagens; track img) {
+      <div class="flex h-full w-full shrink-0 items-center justify-center bg-slate-50">
+        @if (ehVideo(img)) {
+        <video [src]="img" autoplay muted loop playsinline class="max-h-full max-w-full object-contain p-10"></video>
+        } @else {
+        <img [src]="img" [alt]="b.titulo" class="max-h-full max-w-full object-contain p-10" />
+        }
+      </div>
+      }
+    </div>
+
+    @if (b.imagens.length > 1) {
+    <!-- contador -->
+    <span class="absolute right-4 top-4 z-10 rounded-full bg-black/50 px-3 py-1 text-xs text-white">
+      {{ atual() + 1 }} / {{ b.imagens.length }}
+    </span>
+
+    <!-- setas -->
+    <button type="button" (click)="anterior()" aria-label="Imagem anterior"
+      class="absolute left-3 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-3xl leading-none text-white transition hover:bg-black/65">&lsaquo;</button>
+    <button type="button" (click)="proximo()" aria-label="Próxima imagem"
+      class="absolute right-3 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-3xl leading-none text-white transition hover:bg-black/65">&rsaquo;</button>
+
+    <!-- dots -->
+    <div class="absolute inset-x-0 bottom-4 z-10 flex justify-center gap-1.5">
+      @for (img of b.imagens; track img; let i = $index) {
+      <button type="button" (click)="irPara(i)" [attr.aria-label]="'Ir para o slide ' + (i + 1)"
+        class="h-2.5 rounded-full transition-all"
+        [class]="atual() === i ? 'w-6 bg-accent-500' : 'w-2.5 bg-black/25 hover:bg-black/45'"></button>
+      }
+    </div>
+    }
+  </div>
+
+  <!-- tira de miniaturas (clica pra pular) -->
+  @if (b.imagens.length > 1) {
+  <div class="mt-4 flex flex-wrap gap-2.5">
+    @for (img of b.imagens; track img; let i = $index) {
+    <button type="button" (click)="irPara(i)"
+      class="flex h-16 w-20 items-center justify-center overflow-hidden rounded-lg border-2 bg-white p-1.5 transition"
+      [class]="atual() === i ? 'border-accent-500' : 'border-slate-200 hover:border-slate-300'">
+      <img [src]="img" [alt]="b.titulo" class="max-h-full max-w-full object-contain" />
+    </button>
+    }
+  </div>
+  }
+
+  <!-- links -->
+  @if (b.links.length) {
+  <div class="mt-10">
+    <h2 class="mb-4 text-lg font-bold text-brand-700">Links</h2>
+    <div class="flex flex-wrap gap-3">
+      @for (link of b.links; track link.url) {
+      <a [href]="link.url" target="_blank" rel="noopener"
+        class="rounded-xl border border-brand-200 bg-white px-5 py-2.5 font-semibold text-brand-700 shadow-sm transition hover:-translate-y-0.5 hover:border-accent-400 hover:text-accent-500">
+        {{ link.label }}
+      </a>
+      }
+    </div>
+  </div>
+  }
+  } @else {
+  <div class="py-16 text-center">
+    <p class="text-xl font-bold text-brand-700">Banner não encontrado 🙁</p>
+    <a routerLink="/home" class="mt-4 inline-block font-semibold text-accent-500 hover:underline">Voltar para a home</a>
+  </div>
+  }
+</section>

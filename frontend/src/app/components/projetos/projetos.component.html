@@ -1,0 +1,25 @@
+<section class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+  <h1 class="mb-2 text-center text-3xl font-bold text-brand-700 sm:text-4xl">Meus Projetos</h1>
+  <p class="mx-auto mb-12 max-w-2xl text-center text-slate-600">
+    Projetos full-stack que construí — cada card vem do backend.
+  </p>
+
+  @if (projetos().length) {
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+      @for (p of projetos(); track p.id) {
+        <app-projeto-card
+          [titulo]="p.titulo"
+          [descricao]="p.descricao"
+          [midia]="p.midia"
+          [tecnologias]="p.tecnologias"
+          [linkDemo]="p.linkDemo"
+          [linkRepo]="p.linkRepo"
+        />
+      }
+    </div>
+  } @else {
+    <p class="text-center text-slate-400">
+      Carregando… (confira se o backend está rodando em <code>localhost:8000</code>)
+    </p>
+  }
+</section>
